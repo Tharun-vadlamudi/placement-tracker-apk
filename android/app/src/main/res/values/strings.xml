@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Placement Tracker</string>
+    <string name="title_activity_main">Placement Tracker</string>
+    <string name="package_name">com.tharun.placementtracker</string>
+    <string name="custom_url_scheme">com.tharun.placementtracker</string>
+</resources>

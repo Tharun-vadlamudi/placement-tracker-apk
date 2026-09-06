@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Placement Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div>
+
+            <h1>Placement Tracker</h1>
+
+            <p>
+                Track your placement journey
+            </p>
+
+        </div>
+
+
+        <button class="notification-btn">
+            🔔
+        </button>
+
+    </header>
+
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <div class="dashboard">
+
+        <div class="stat-card">
+
+            <strong id="totalCompanies">
+                0
+            </strong>
+
+            <span>
+                Total
+            </span>
+
+        </div>
+
+
+        <div class="stat-card pending-stat">
+
+            <strong id="pendingCompanies">
+                0
+            </strong>
+
+            <span>
+                Pending
+            </span>
+
+        </div>
+
+
+        <div class="stat-card accepted-stat">
+
+            <strong id="acceptedCompanies">
+                0
+            </strong>
+
+            <span>
+                Accepted
+            </span>
+
+        </div>
+
+
+        <div class="stat-card rejected-stat">
+
+            <strong id="rejectedCompanies">
+                0
+            </strong>
+
+            <span>
+                Rejected
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main id="content">
+
+
+        <!-- ================= REMINDERS ================= -->
+
+        <section
+            id="reminders"
+            class="page active"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>
+                        🔔 All Reminders
+                    </h2>
+
+                    <p>
+                        Upcoming placement activities
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="add-btn"
+                    onclick="openReminderModal()"
+                >
+                    +
+                </button>
+
+            </div>
+
+
+            <div
+                id="reminderList"
+                class="card-list"
+            ></div>
+
+        </section>
+
+
+
+        <!-- ================= COMPANIES ================= -->
+
+        <section
+            id="companies"
+            class="page"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>
+                        🏢 All Companies
+                    </h2>
+
+                    <p>
+                        Companies you have applied to
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="add-btn"
+                    onclick="openCompanyModal()"
+                >
+                    +
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                🔍
+
+                <input
+                    type="text"
+                    id="companySearch"
+                    placeholder="Search companies..."
+                    oninput="searchCompanies()"
+                >
+
+            </div>
+
+
+            <!-- FILTERS -->
+
+            <div class="filters">
+
+                <button
+                    class="filter active-filter"
+                    onclick="filterCompanies('all', this)"
+                >
+                    All
+                </button>
+
+
+                <button
+                    class="filter"
+                    onclick="filterCompanies('pending', this)"
+                >
+                    🟡 Pending
+                </button>
+
+
+                <button
+                    class="filter"
+                    onclick="filterCompanies('accepted', this)"
+                >
+                    🟢 Accepted
+                </button>
+
+
+                <button
+                    class="filter"
+                    onclick="filterCompanies('rejected', this)"
+                >
+                    🔴 Rejected
+                </button>
+
+            </div>
+
+
+            <div
+                id="companyList"
+                class="card-list"
+            ></div>
+
+        </section>
+
+
+
+        <!-- ================= MY COMPANIES ================= -->
+
+        <section
+            id="myCompanies"
+            class="page"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>
+                        ⭐ My Companies
+                    </h2>
+
+                    <p>
+                        Your selected companies
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="myCompanyList"
+                class="card-list"
+            ></div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= BOTTOM NAVIGATION ================= -->
+
+    <nav class="bottom-nav">
+
+
+        <button
+            class="nav-item active"
+            onclick="showPage('reminders', this)"
+        >
+
+            <span>
+                🔔
+            </span>
+
+            <small>
+                Reminders
+            </small>
+
+        </button>
+
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('companies', this)"
+        >
+
+            <span>
+                🏢
+            </span>
+
+            <small>
+                Companies
+            </small>
+
+        </button>
+
+
+
+        <button
+            class="nav-item"
+            onclick="showPage('myCompanies', this)"
+        >
+
+            <span>
+                ⭐
+            </span>
+
+            <small>
+                My Companies
+            </small>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<!-- ================= COMPANY MODAL ================= -->
+
+<div
+    id="companyModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Add Company
+                </h2>
+
+                <p>
+                    Add a company you applied to
+                </p>
+
+            </div>
+
+
+            <button
+                onclick="closeCompanyModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <label>
+            Company Name
+        </label>
+
+        <input
+            type="text"
+            id="companyName"
+            placeholder="Example: TCS"
+        >
+
+
+        <label>
+            Application Date
+        </label>
+
+        <input
+            type="date"
+            id="applicationDate"
+        >
+
+
+        <button
+            class="save-btn"
+            onclick="addCompany()"
+        >
+            Add Company
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= REMINDER MODAL ================= -->
+
+<div
+    id="reminderModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Add Reminder
+                </h2>
+
+                <p>
+                    Schedule a placement activity
+                </p>
+
+            </div>
+
+
+            <button
+                onclick="closeReminderModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <label>
+            Company
+        </label>
+
+        <input
+            type="text"
+            id="reminderCompany"
+            placeholder="Example: Infosys"
+        >
+
+
+        <label>
+            Activity
+        </label>
+
+        <select id="reminderType">
+
+            <option value="PPT">
+                PPT
+            </option>
+
+            <option value="Exam">
+                Exam
+            </option>
+
+            <option value="Interview">
+                Interview
+            </option>
+
+            <option value="Assessment">
+                Online Assessment
+            </option>
+
+        </select>
+
+
+        <label>
+            Date
+        </label>
+
+        <input
+            type="date"
+            id="reminderDate"
+        >
+
+
+        <label>
+            Time
+        </label>
+
+        <input
+            type="time"
+            id="reminderTime"
+        >
+
+
+        <button
+            class="save-btn"
+            onclick="addReminder()"
+        >
+            Add Reminder
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
